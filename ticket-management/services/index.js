@@ -1,4 +1,6 @@
 const { ScanCommand, GetCommand, PutCommand, DeleteCommand } = require("@aws-sdk/lib-dynamodb");
+const { PutObjectCommand } = require("@aws-sdk/client-s3");
+const { v4: uuidv4 } = require("uuid");
 const { dynamodbClient, s3Client } = require('../config');
 
 const TABLENAME = "EventTickets";
@@ -22,4 +24,23 @@ const upsert = async (item) => {
     return item;
 }
 
-module.exports = { getAll, getId, upsert }
+const remove = async (id) => {
+    const params = { TableName: TABLENAME, Key: { ticketId: id } };
+    await dynamodbClient.send(new DeleteCommand(params));
+    return true;
+}
+
+const uploadImage = async (file) => {
+    if (!file) return null;
+    const key = `tickets/${Date.now()}-${uuidv4()}-${file.originalname}`;
+    const params = {
+        Bucket: BUCKETNAME,
+        Key: key,
+        Body: file.buffer,
+        ContentType: file.mimetype
+    };
+    await s3Client.send(new PutObjectCommand(params));
+    return `https://${BUCKETNAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+}
+
+module.exports = { getAll, getId, upsert, remove, uploadImage }

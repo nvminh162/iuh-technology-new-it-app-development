@@ -2,23 +2,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ticket Detail</title>
 </head>
 <body>
-    <h1>Xem chi tiết</h1>
+    <h1>Xem chi tiet</h1>
     <% if (ticket == null) { %>
-        <p>Sản phẩm không tồn tại</p>
+        <p>Ve khong ton tai</p>
     <% } else { %>
-        <p><%= ticket.ticketId %></p>
-        <p><%= ticket.eventName %></p>
-        <p><%= ticket.holderName %></p>
-        <p><%= ticket.category %></p>
-        <p><%= ticket.quantity %></p>
-        <p><%= ticket.pricePerTicket %></p>
-        <p><%= ticket.eventDate %></p>
-        <p><%= ticket.status %></p>
-        <p><%= ticket.imageUrl %></p>
-        <p><%= ticket.createdAt %></p>
+        <p><strong>ticketId:</strong> <%= ticket.ticketId %></p>
+        <p><strong>eventName:</strong> <%= ticket.eventName %></p>
+        <p><strong>holderName:</strong> <%= ticket.holderName %></p>
+        <p><strong>category:</strong> <%= ticket.category %></p>
+        <p><strong>quantity:</strong> <%= ticket.quantity %></p>
+        <p><strong>pricePerTicket:</strong> <%= ticket.pricePerTicket %></p>
+        <p><strong>eventDate:</strong> <%= ticket.eventDate %></p>
+        <p><strong>status:</strong> <%= ticket.status %></p>
+        <p><strong>createdAt:</strong> <%= ticket.createdAt %></p>
+        <p><strong>totalAmount:</strong> <%= ticket.totalAmount || 0 %></p>
+        <p><strong>finalAmount:</strong> <%= ticket.finalAmount || 0 %></p>
+        <p><strong>discountLabel:</strong> <%= ticket.discountLabel || 'Khong giam gia' %></p>
+        <% if (ticket.imageUrl) { %>
+            <p><img src="<%= ticket.imageUrl %>" alt="ticket image" width="220"></p>
+        <% } %>
+        <p>
+            <a href="/upsert/<%= ticket.ticketId %>">Sua</a> |
+            <a href="/">Back</a>
+        </p>
     <% } %>
 </body>
 </html>

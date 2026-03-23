@@ -6,28 +6,44 @@
     <title><%= ticket ? 'Edit ticket' : 'Add ticket' %></title>
 </head>
 <body>
-    <h1><%= ticket ? 'Sửa vé' : 'Thêm vé' %></h1>
+    <h1><%= ticket ? 'Sua ve' : 'Them ve' %></h1>
 
-    <form action="<%= ticket ? '/upsert/' + ticket.ticketId : '/upsert' %>" method="post">
-        <% if (!ticket) { %>
-            <p>
-                <label>ticketId</label><br>
-                <input name="ticketId" required>
-            </p>
+    <% if (error) { %>
+        <p style="color:red;"><%= error %></p>
+    <% } %>
+
+    <form action="<%= ticket ? '/upsert/' + ticket.ticketId : '/upsert' %>" method="post" enctype="multipart/form-data">
+        <p><label>eventName</label><br><input name="eventName" value="<%= ticket?.eventName || '' %>" required></p>
+        <p><label>holderName</label><br><input name="holderName" value="<%= ticket?.holderName || '' %>" required></p>
+        <p>
+            <label>category</label><br>
+            <select name="category" required>
+                <option value="Standard" <%= ticket?.category === 'Standard' ? 'selected' : '' %>>Standard</option>
+                <option value="VIP" <%= ticket?.category === 'VIP' ? 'selected' : '' %>>VIP</option>
+                <option value="VVIP" <%= ticket?.category === 'VVIP' ? 'selected' : '' %>>VVIP</option>
+            </select>
+        </p>
+        <p><label>quantity</label><br><input name="quantity" type="number" min="1" value="<%= ticket?.quantity || '' %>" required></p>
+        <p><label>pricePerTicket</label><br><input name="pricePerTicket" type="number" min="1" value="<%= ticket?.pricePerTicket || '' %>" required></p>
+        <p><label>eventDate</label><br><input name="eventDate" type="date" value="<%= ticket?.eventDate ? String(ticket.eventDate).slice(0, 10) : '' %>" required></p>
+        <p>
+            <label>status</label><br>
+            <select name="status" required>
+                <option value="Upcoming" <%= ticket?.status === 'Upcoming' ? 'selected' : '' %>>Upcoming</option>
+                <option value="Sold" <%= ticket?.status === 'Sold' ? 'selected' : '' %>>Sold</option>
+                <option value="Cancelled" <%= ticket?.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+            </select>
+        </p>
+        <p>
+            <label>image</label><br>
+            <input name="image" type="file" accept="image/*" <%= ticket ? '' : 'required' %>>
+        </p>
+        <% if (ticket?.imageUrl) { %>
+            <p><img src="<%= ticket.imageUrl %>" alt="ticket image" width="120"></p>
         <% } %>
 
-        <p><label>eventName</label><br><input name="eventName" value="<%= ticket?.eventName || '' %>"></p>
-        <p><label>holderName</label><br><input name="holderName" value="<%= ticket?.holderName || '' %>"></p>
-        <p><label>category</label><br><input name="category" value="<%= ticket?.category || '' %>"></p>
-        <p><label>quantity</label><br><input name="quantity" value="<%= ticket?.quantity || '' %>"></p>
-        <p><label>pricePerTicket</label><br><input name="pricePerTicket" value="<%= ticket?.pricePerTicket || '' %>"></p>
-        <p><label>eventDate</label><br><input name="eventDate" value="<%= ticket?.eventDate || '' %>"></p>
-        <p><label>status</label><br><input name="status" value="<%= ticket?.status || '' %>"></p>
-        <p><label>imageUrl</label><br><input name="imageUrl" value="<%= ticket?.imageUrl || '' %>"></p>
-        <p><label>createdAt</label><br><input name="createdAt" value="<%= ticket?.createdAt || '' %>"></p>
-
-        <button type="submit"><%= ticket ? 'Cập nhật' : 'Thêm mới' %></button>
-        <a href="/">Quay lại</a>
+        <button type="submit"><%= ticket ? 'Cap nhat' : 'Them moi' %></button>
+        <a href="/">Quay lai</a>
     </form>
 </body>
 </html>
