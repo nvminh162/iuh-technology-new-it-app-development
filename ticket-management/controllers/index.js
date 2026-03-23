@@ -24,7 +24,7 @@ const controller = {
             res.status(500).json({ message: error.message });
         }
     },
-    add: async (req, res) => {
+    upsert: async (req, res) => {
         try {
             
         } catch (error) {
