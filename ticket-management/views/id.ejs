@@ -5,29 +5,22 @@
     <title>Ticket Detail</title>
 </head>
 <body>
-    <h1>Xem chi tiet</h1>
+    <h1>Xem chi tiết</h1>
     <% if (ticket == null) { %>
-        <p>Ve khong ton tai</p>
+        <p>Vé không tồn tại</p>
     <% } else { %>
-        <p><strong>ticketId:</strong> <%= ticket.ticketId %></p>
-        <p><strong>eventName:</strong> <%= ticket.eventName %></p>
-        <p><strong>holderName:</strong> <%= ticket.holderName %></p>
-        <p><strong>category:</strong> <%= ticket.category %></p>
-        <p><strong>quantity:</strong> <%= ticket.quantity %></p>
-        <p><strong>pricePerTicket:</strong> <%= ticket.pricePerTicket %></p>
-        <p><strong>eventDate:</strong> <%= ticket.eventDate %></p>
-        <p><strong>status:</strong> <%= ticket.status %></p>
-        <p><strong>createdAt:</strong> <%= ticket.createdAt %></p>
-        <p><strong>totalAmount:</strong> <%= ticket.totalAmount || 0 %></p>
-        <p><strong>finalAmount:</strong> <%= ticket.finalAmount || 0 %></p>
-        <p><strong>discountLabel:</strong> <%= ticket.discountLabel || 'Khong giam gia' %></p>
+        <p>Ticket ID: <%= ticket.ticketId %></p>
+        <p>Event Name: <%= ticket.eventName %></p>
+        <p>Holder Name: <%= ticket.holderName %></p>
+        <p>Category: <%= ticket.category %></p>
+        <p>Quantity: <%= ticket.quantity %></p>
+        <p>Price per ticket: <%= ticket.pricePerTicket %></p>
+        <p>Event date: <%= ticket.eventDate %></p>
+        <p>Status: <%= ticket.status %></p>
+        <p>Created At: <%= ticket.createdAt %></p>
         <% if (ticket.imageUrl) { %>
             <p><img src="<%= ticket.imageUrl %>" alt="ticket image" width="220"></p>
         <% } %>
-        <p>
-            <a href="/upsert/<%= ticket.ticketId %>">Sua</a> |
-            <a href="/">Back</a>
-        </p>
     <% } %>
 </body>
 </html>

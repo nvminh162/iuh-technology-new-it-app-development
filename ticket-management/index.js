@@ -12,6 +12,4 @@ app.use(express.static("public"));
 
 app.use("/", require("./routes"))
 
-app.listen(3000, () => {
-    console.log(`Server running port: 3000`);
-})
+app.listen(process.env.PORT || 3000, () => console.log(`Server running port: 3000: http://localhost:3000`))

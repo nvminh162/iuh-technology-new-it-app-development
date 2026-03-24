@@ -32,7 +32,7 @@ const remove = async (id) => {
 
 const uploadImage = async (file) => {
     if (!file) return null;
-    const key = `tickets/${Date.now()}-${uuidv4()}-${file.originalname}`;
+    const key = `tickets/${uuidv4()}-${file.originalname}`;
     const params = {
         Bucket: BUCKETNAME,
         Key: key,
