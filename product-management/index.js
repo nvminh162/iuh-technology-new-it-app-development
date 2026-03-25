@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const { getAll } = require("./controller");
+const { getAll, getId } = require("./controller");
 
 const app = express();
 
@@ -11,5 +11,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 app.get("/", getAll);
+app.get("/form", getId);
+app.get("/form/:id", getId);
 
-app.listen(process.env.PORT || 3000, () => console.log(`SERVER RUNNING ...`));
+app.listen(3000, () => console.log(`SERVER RUNNING ...`));

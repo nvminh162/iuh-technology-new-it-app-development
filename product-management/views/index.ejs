@@ -6,8 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Nguyen Van Minh</h1>
     <h1>Danh sách</h1>
+
+    <a href="/form">Thêm</a>
 
     <table border="1" width="80%" style="text-align: center;">
         <tr>
@@ -19,16 +20,26 @@
             <th>ACTION</th>
         </tr>
         <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Image</td>
-            <td>Quantity</td>
-            <td>
-                <button>Sửa</button>
-                <button>Xoá</button>
-            </td>
+            <% if (!items || items.length === 0) { %>
+                <td colspan="6">Không có sản phẩm nào</td>
+            <% } else { %>
+                <% items.forEach(item => { %>
+                    <td><%= item.id %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.price %></td>
+                    <td>
+                        <img src=<%= item.image %> alt="" width="100">
+                    </td>
+                    <td><%= item.quantity %></td>
+                    <td>
+                        <button>Sửa</button>
+                        <button>Xoá</button>
+                    </td>
+                <% }) %>
+            <% } %>
         </tr>
+        
+            
     </table>
 </body>
 </html>
