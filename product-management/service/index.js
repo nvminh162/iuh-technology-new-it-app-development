@@ -29,6 +29,7 @@ const save = async (id, body, file) => {
     // payload s3
     if (file) {
         // upload file
+        console.log(file.originalname);
         const Key = `${randomUUID()}-${file.originalname}`
         await s3Client.send(
             new PutObjectCommand({ Bucket, Key, Body: file.buffer, ContentType: file.mimetype })
