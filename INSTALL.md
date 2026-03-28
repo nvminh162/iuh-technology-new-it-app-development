@@ -31,21 +31,25 @@ cd <nvminh162-project-name>
 ```
 npm init -y
 
-npm install @aws-sdk/client-s3 @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb ejs express dotenv multer nodemon bootstrap
+npm install @aws-sdk/client-s3 @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb ejs express dotenv multer nodemon
 ```
 ```
 "start": "nodemon index.js"
 ```
 
-# Bootstrap config
-```
-app.use("/css", express.static("node_modules/bootstrap/dist/css"));
-app.use("/js", express.static("node_modules/bootstrap/dist/js"));
-
-<link href="/css/bootstrap.min.css" rel="stylesheet" />
-<script src="/js/bootstrap.bundle.min.js"></script>
-```
-
 # Extension
 + EJS language support
-+ 
++ Bootstrap 5 Quick Snippets
++ Bootstrap IntelliSense
++ Bootstrap 5 Pro Snippets – Accessibility First
+
+# Snippets
+- Album mode
+    + !AlbumTemplate
+    
+- Table mode
+    + b5-table
+
+- Form
+    + b5-form
+    + b5-input, b5-select
