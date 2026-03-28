@@ -20,6 +20,11 @@
         <br>
         <input type="number" name="quantity" placeholder="Quantity" required value="<%= item?.quantity || '' %>">
         <br>
+        <select name="category">
+            <option value="STANDARD" <%= item?.category === 'STANDARD' ? 'selected' : '' %>>STANDARD</option>
+            <option value="PROMOTION" <%= item?.category === 'PROMOTION' ? 'selected' : '' %>>PROMOTION</option>
+        </select>
+        <br>
         <button type="submit">Save</button>
     </form>
     <% if (item?.image) { %>

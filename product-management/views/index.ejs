@@ -15,18 +15,22 @@
             <th>Price</th>
             <th>Image</th>
             <th>Quantity</th>
+            <th>Category</th>
             <th>Status</th>
             <th>Amount</th>
+            <th>Final Amount</th>
+            <th>Giảm giá</th>
             <th>ACTION</th>
         </tr>
         <% if (!items || items.length === 0) { %>
             <tr>
-                <td colspan="8">Không có sản phẩm nào</td>
+                <td colspan="10">Không có sản phẩm nào</td>
             </tr>
             <% } else { %>
                 <% items.forEach(item => { %>
                     <% const status = statusLabel(item?.quantity || 0); %>
                     <% const amount = computeAmount(item?.price || 0, item?.quantity || 0); %>
+                    <% const { finalAmount, finalAmountLabel } = computeFinalAmount(item?.price || 0, item?.quantity || 0, item?.category || ''); %>
                     <tr>
                         <td><%= item.id %></td>
                         <td><%= item.name %></td>
@@ -39,8 +43,11 @@
                             <% } %>
                         </td>
                         <td><%= item.quantity %></td>
+                        <td><%= item.category %></td>
                         <td><%= status %></td>
                         <td><%= amount %></td>
+                        <td><%= finalAmount %></td>
+                        <td><%= finalAmountLabel %></td>
                         <td>
                             <a href="/form/<%= item.id %>">Sửa</a>
                             <form action="/items/delete/<%= item.id %>" method="POST">

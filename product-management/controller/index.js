@@ -1,10 +1,10 @@
 const { findAll, findById, save, deleteById } = require("../service");
-const { computeAmount, statusLabel } = require('../utils')
+const { computeAmount, statusLabel, computeFinalAmount } = require('../utils')
 const { validation } = require("../validation")
 
 const renderAllController = async (req, res) => {
   const items = await findAll();
-  return res.render("index", { items, computeAmount, statusLabel });
+  return res.render("index", { items, computeAmount, statusLabel, computeFinalAmount });
   // return res.status(200).json(items)
 };
 

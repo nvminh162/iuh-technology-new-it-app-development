@@ -17,14 +17,14 @@ const findById = async (id) => {
 }
 
 const save = async (id, body, file) => {
-    const { name, price, quantity } = body; // trừ image
+    const { name, price, quantity, category } = body; // trừ image
     // payload create
-    let item = { id: id ?? randomUUID(), name, price, quantity } // trừ image
+    let item = { id: id ?? randomUUID(), name, price, quantity, category } // trừ image
     // payload update
     if (id) {
         const res = await findById(id);
         if (!res) throw new Error("Item not found");
-        item = { ...res, name, price, quantity }; // đã rải url ảnh cũ vào
+        item = { ...res, name, price, quantity, category }; // đã rải url ảnh cũ vào
     }
     // payload s3
     if (file) {

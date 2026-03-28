@@ -8,4 +8,13 @@ const statusLabel = (quantity) => {
     else return "Còn vé";
 }
 
-module.exports = { computeAmount, statusLabel }
+const computeFinalAmount = (price, quantity, category) => {
+    let amount = computeAmount(price, quantity);
+    let discountRate = 0;
+    if (category === 'PROMOTION') discountRate = 0.3; // 30%
+    if (category === 'STANDARD' && quantity >= 10) discountRate = 0.15; // 15%
+    const finalAmount = amount * (1 - discountRate);
+    return { finalAmount, finalAmountLabel: discountRate > 0 ? "Được giảm giá" : "Không giảm giá" };
+}
+
+module.exports = { computeAmount, statusLabel, computeFinalAmount }
