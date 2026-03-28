@@ -48,7 +48,7 @@
                     <tr>
                         <td><%= item.id %></td>
                         <td><%= item.name %></td>
-                        <td><%= item.price %></td>
+                        <td><%= formatCurrency(item.price) %></td>
                         <td>
                             <% if (item.image) { %>
                                 <img src=<%= item.image %> alt="" width="100">
@@ -59,8 +59,8 @@
                         <td><%= item.quantity %></td>
                         <td><%= item.category %></td>
                         <td><%= status %></td>
-                        <td><%= amount %></td>
-                        <td><%= finalAmount %></td>
+                        <td><%= formatCurrency(amount) %></td>
+                        <td><%= formatCurrency(finalAmount) %></td>
                         <td><%= finalAmountLabel %></td>
                         <td>
                             <a href="/form/<%= item.id %>">Sửa</a>

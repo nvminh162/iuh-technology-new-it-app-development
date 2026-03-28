@@ -1,5 +1,5 @@
 const { findAll, findById, save, deleteById } = require("../service");
-const { computeAmount, statusLabel, computeFinalAmount } = require('../utils')
+const { computeAmount, statusLabel, computeFinalAmount, formatCurrency } = require('../utils')
 const { validation } = require("../validation")
 
 const renderAllController = async (req, res) => {
@@ -14,7 +14,7 @@ const renderAllController = async (req, res) => {
     items = items.filter(item => item.category === category);
   }
 
-  return res.render("index", { items, computeAmount, statusLabel, computeFinalAmount });
+  return res.render("index", { items, computeAmount, statusLabel, computeFinalAmount, formatCurrency });
 };
 
 const renderFormController = async (req, res) => {

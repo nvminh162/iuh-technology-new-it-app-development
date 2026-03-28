@@ -17,4 +17,11 @@ const computeFinalAmount = (price, quantity, category) => {
     return { finalAmount, finalAmountLabel: discountRate > 0 ? "Được giảm giá" : "Không giảm giá" };
 }
 
-module.exports = { computeAmount, statusLabel, computeFinalAmount }
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(Number(value) || 0);
+}
+
+module.exports = { computeAmount, statusLabel, computeFinalAmount, formatCurrency }
