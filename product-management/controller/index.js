@@ -3,8 +3,8 @@ const { computeAmount, statusLabel, computeFinalAmount } = require('../utils')
 const { validation } = require("../validation")
 
 const renderAllController = async (req, res) => {
-  let items = await findAll();
   const { name, category } = req.query;
+  let items = await findAll();
 
   if (name) {
     items = items.filter(item => item.name?.toLowerCase().includes(name.toLowerCase()));
