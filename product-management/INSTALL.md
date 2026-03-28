@@ -31,9 +31,7 @@ cd <nvminh162-project-name>
 ```
 npm init -y
 
-npm i @aws-sdk/client-s3 @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb ejs express express-session body-parser dotenv multer
-
-npm i nodemon --savedev
+npm install @aws-sdk/client-s3 @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb ejs express dotenv multer nodemon
 ```
 ```
 "start": "nodemon index.js"
