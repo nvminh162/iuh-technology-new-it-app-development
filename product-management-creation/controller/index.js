@@ -1,5 +1,4 @@
-const { controller } = require("../../product-management-creation/controller");
-const { findAll, findById, save, deleteById } = require("../service");
+const { findAll, findById, add, deleteById } = require("../service");
 const {
   computeAmount,
   statusLabel,
@@ -48,31 +47,21 @@ const controller = {
       formatCurrency,
     });
   },
-
   renderForm: async (req, res) => {
-    const { id } = req.params;
-    const item = id ? await findById(id) : null;
-    return res.render("form", { item, error: null });
+    return res.render("form", { error: null });
   },
 
-  save: async (req, res) => {
+  add: async (req, res) => {
     const invalid = validation(req.body);
-    if (invalid) {
-      const item = {
-        ...req.body,
-        ...(req.params.id ? { id: req.params.id } : {}),
-      }; // gắn lại data cũ vào form
-      return res.render("form", { item, error: invalid });
-    }
+    if (invalid) return res.render("form", { error: invalid });
 
     try {
-      await save(req.params.id, req.body, req.file);
+      await add(req.body, req.file);
       return res.redirect("/");
     } catch (error) {
       return res.status(500).send(error.message);
     }
   },
-
   deleteById: async (req, res) => {
     try {
       await deleteById(req.params.id);

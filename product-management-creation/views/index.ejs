@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Danh sách</h1>
+    <a href="/form">Thêm</a>
+    <br>
+    <br>
+    <form action="/" method="get">
+        <input type="text" name="name" placeholder="Search name or customer">
+        <br>
+        <select name="category">
+            <option value="ALL">ALL CATEGORY</option>
+            <option value="STANDARD">STANDARD</option>
+            <option value="PROMOTION">PROMOTION</option>
+        </select>
+        <br>
+        <select name="status">
+            <option value="ALL">ALL STATUS</option>
+            <option value="Còn vé">Còn vé</option>
+            <option value="Sắp hết vé">Sắp hết vé</option>
+            <option value="Hết vé">Hết vé</option>
+        </select>
+        <br>
+        <label>Expiry From: </label>
+        <input type="date" name="expiryFrom">
+        <label>Expiry To: </label>
+        <input type="date" name="expiryTo">
+        <br>
+        <button type="submit">Tìm/Lọc</button>
+    </form>
+    <br>
+    <table border="1" width="80%" style="text-align: center;">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Customer</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Expiry Date</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Final Amount</th>
+            <th>Giảm giá</th>
+            <th>ACTION</th>
+        </tr>
+        <% if (!items || items.length === 0) { %>
+            <tr>
+                <td colspan="13">Không có sản phẩm nào</td>
+            </tr>
+            <% } else { %>
+                <% items.forEach(item => { %>
+                    <% const status = statusLabel(item?.quantity || 0); %>
+                    <% const amount = computeAmount(item?.price || 0, item?.quantity || 0); %>
+                    <% const { finalAmount, finalAmountLabel } = computeFinalAmount(item?.price || 0, item?.quantity || 0, item?.category || ''); %>
+                    <tr>
+                        <td><%= item.id %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.customer %></td>
+                        <td><%= formatCurrency(item.price) %></td>
+                        <td>
+                            <% if (item.image) { %>
+                                <img src=<%= item.image %> alt="" width="100">
+                            <% } else { %>
+                                Chưa upload ảnh
+                            <% } %>
+                        </td>
+                        <td><%= item.quantity %></td>
+                        <td><%= item.expiry %></td>
+                        <td><%= item.category %></td>
+                        <td><%= status %></td>
+                        <td><%= formatCurrency(amount) %></td>
+                        <td><%= formatCurrency(finalAmount) %></td>
+                        <td><%= finalAmountLabel %></td>
+                        <td>
+                            <form action="/items/delete/<%= item.id %>" method="POST">
+                                <button type="submit">Xoá</button>
+                            </form>
+                        </td>
+                    </tr>
+            <% }) %>
+        <% } %>  
+    </table>
+</body>
+</html>

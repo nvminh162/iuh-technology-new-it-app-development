@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Thêm</h1>
+    <a href="/">Quay lại</a>
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form action="/items" method="POST" enctype="multipart/form-data">
+        <br>
+        <input type="text" name="name" placeholder="Name" required>
+        <br>
+        <input type="text" name="customer" placeholder="Customer" required>
+        <br>
+        <input type="number" name="price" placeholder="Price" required>
+        <br>
+        <input type="file" name="image" accept="image/*">
+        <br>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <br>
+        <input type="date" name="expiry" required>
+        <br>
+        <select name="category">
+            <option value="STANDARD">STANDARD</option>
+            <option value="PROMOTION">PROMOTION</option>
+        </select>
+        <br>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

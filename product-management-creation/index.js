@@ -12,9 +12,7 @@ app.set("views", "./views");
 
 app.get("/", controller.renderAll);
 app.get("/form", controller.renderForm);
-app.get("/form/:id", controller.renderForm);
-app.post("/items", upload.single("image"), controller.save);
-app.post("/items/:id", upload.single("image"), controller.save);
+app.post("/items", upload.single("image"), controller.add);
 app.post("/items/delete/:id", controller.deleteById);
 
 app.listen(3000, () => console.log(`SERVER RUNNING ...`));
