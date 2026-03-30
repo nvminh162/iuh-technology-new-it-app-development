@@ -1,25 +1,48 @@
 const { findAll, findById, save, deleteById } = require("../service");
-const { computeAmount, statusLabel, computeFinalAmount, formatCurrency } = require('../utils')
-const { validation } = require("../validation")
+const {
+  computeAmount,
+  statusLabel,
+  computeFinalAmount,
+  formatCurrency,
+} = require("../utils");
+const { validation } = require("../validation");
 
 const renderAllController = async (req, res) => {
-  const { name, category, status } = req.query;
+  const { name, category, status, expiryFrom, expiryTo } = req.query;
   let items = await findAll();
 
   if (name) {
     const keyword = name.toLowerCase();
-    items = items.filter(item => item.name?.toLowerCase().includes(keyword) || item.customer?.toLowerCase().includes(keyword));
+    items = items.filter(
+      (item) =>
+        item.name?.toLowerCase().includes(keyword) ||
+        item.customer?.toLowerCase().includes(keyword),
+    );
   }
 
   if (category && category !== "ALL") {
-    items = items.filter(item => item.category === category);
+    items = items.filter((item) => item.category === category);
   }
 
   if (status && status !== "ALL") {
-    items = items.filter(item => statusLabel(item?.quantity || 0) === status); //filter without dynamodb
+    items = items.filter((item) => statusLabel(item?.quantity || 0) === status); //filter without dynamodb
   }
 
-  return res.render("index", { items, computeAmount, statusLabel, computeFinalAmount, formatCurrency });
+  if (expiryFrom) {
+    items = items.filter((item) => item.expiry >= expiryFrom);
+  }
+
+  if (expiryTo) {
+    items = items.filter((item) => item.expiry <= expiryTo);
+  }
+
+  return res.render("index", {
+    items,
+    computeAmount,
+    statusLabel,
+    computeFinalAmount,
+    formatCurrency,
+  });
 };
 
 const renderFormController = async (req, res) => {
@@ -31,7 +54,10 @@ const renderFormController = async (req, res) => {
 const saveController = async (req, res) => {
   const invalid = validation(req.body);
   if (invalid) {
-    const item = { ...req.body, ...(req.params.id ? { id: req.params.id } : {}) }; // gắn lại data cũ vào form
+    const item = {
+      ...req.body,
+      ...(req.params.id ? { id: req.params.id } : {}),
+    }; // gắn lại data cũ vào form
     return res.render("form", { item, error: invalid });
   }
 
@@ -50,6 +76,11 @@ const deleteByIdController = async (req, res) => {
   } catch (error) {
     return res.status(500).send(error.message);
   }
-}
+};
 
-module.exports = { renderAllController, renderFormController, saveController, deleteByIdController };
+module.exports = {
+  renderAllController,
+  renderFormController,
+  saveController,
+  deleteByIdController,
+};
