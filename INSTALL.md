@@ -54,5 +54,5 @@ mkdir config,controller,service,utils,validation,views
     + b5-table
 
 - Form
-    + b5-form
-    + b5-input, b5-select
+    + b5-form-input
+    + b5-select ...
