@@ -62,7 +62,7 @@ const controller = {
         ...req.body,
         ...(req.params.id ? { id: req.params.id } : {}),
       }; // gắn lại data cũ vào form
-      return res.render("form", { item, error: invalid });
+      return res.render("form", { item, error: invalid }); // item: for update get from URL
     }
 
     try {
